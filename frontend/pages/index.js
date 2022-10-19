@@ -1,6 +1,7 @@
-import Head from 'next/head'
-import Image from 'next/image'
-
+import Head from "next/head";
+import Image from "next/image";
+import { Box, Heading, SimpleGrid, Flex, Text } from "@chakra-ui/react";
+import GetUserLocation from "../Components/GetUserLocations";
 
 export default function Home() {
   return (
@@ -11,10 +12,44 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>home page</h1>
-
-      
-      
+      <Flex direction="column" align="center" justify="center">
+        <Box
+        // sx={{
+        //   position: "fixed",
+        //   display: "none",
+        //   width: "100%",
+        //   height: "100%",
+        //   top: "0",
+        //   left: "0",
+        //   right: "0",
+        //   bottom: "0",
+        //   backgroundColor: "rgba(0,0,0,0.5)",
+        //   zIndex: "-2",
+        // }}
+        >
+          <video
+            autoPlay
+            loop
+            muted
+            style={{
+              width: "100vw",
+              height: "100vh",
+              objectFit: "cover",
+              objectPosition: "center",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              zIndex: -1,
+            }}
+          >
+            <source src="/waiting.mp4" type="video/mp4" />
+          </video>
+          <Heading as="h1" my="4rem">
+            Welcome to Airportly
+          </Heading>
+          <GetUserLocation />
+        </Box>
+      </Flex>
     </main>
-  )
+  );
 }
