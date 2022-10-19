@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const yelp = require("yelp-fusion");
 const dotenv = require("dotenv");
+dotenv.config();
 const client = yelp.client(process.env.APP_YELP_KEY);
 
 const PORT = process.env.PORT || 5000;
