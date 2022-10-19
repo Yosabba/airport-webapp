@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./slices/userSlice";
+import foodLocationReducer from "./features/food-location/food-location-slice";
 
 export const store = configureStore({
   reducer: {
-    foodLocation: userReducer,
+    foodLocation: foodLocationReducer,
   },
 });
