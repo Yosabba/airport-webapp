@@ -7,16 +7,6 @@ import axios from "axios";
 const App = () => {
   const [userLocation, setUserLocation] = useState(null);
 
-  useEffect(() => {
-    const getData = async () => {
-      const response = await axios.get(
-        "https://api.yelp.com/v3/businesses/search/NYC"
-      );
-      setUserLocation(response.data);
-    };
-
-    
-  }, []);
   return (
     <Flex direction="column" align="center" justify="center">
       <Box
