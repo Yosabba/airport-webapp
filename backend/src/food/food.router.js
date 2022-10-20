@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const controller = require("./food.controller");
 
-router.route("/").get(controller.list);
+router.route("/").post(controller.read);
 
 module.exports = router;
