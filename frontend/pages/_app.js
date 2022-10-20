@@ -3,10 +3,10 @@ import { store } from "../store.js";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 const breakpoints = {
-  sm: "320px",
-  md: "768px",
-  lg: "960px",
-  xl: "1200px",
+  mobile: "320px",
+  tablet: "768px",
+  laptop: "960px",
+  desktop: "1200px",
   "2xl": "1536px",
 };
 
