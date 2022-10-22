@@ -5,6 +5,7 @@ import axios from "axios";
 const initialState = {
   foodNearMe: [],
   isLoading: false,
+  isFetched: false,
   error: "",
 };
 
@@ -48,6 +49,8 @@ const foodLocationSlice = createSlice({
     builder
       .addCase(fetchFoodNearMe.fulfilled, (state, action) => {
         state.foodNearMe = action.payload;
+        state.isLoading = false;
+        state.isFetched = true;
       })
       .addCase(fetchFoodNearMe.pending, (state, action) => {
         state.isLoading = true;
