@@ -14,28 +14,24 @@ export default function Home() {
       </Head>
 
       <Flex direction="column" align="center" justify="center">
-        <Box>
-          <BgOverlay>
-            <Video autoPlay loop muted>
-              <source src="/waiting.mp4" type="video/mp4" />
-            </Video>
-          </BgOverlay>
-          
-          <GetUserLocation />
+        <Box
+          background="rgba(0, 0, 0, 0.5)"
+          position="absolute"
+          top="0"
+          left="0"
+          width="100%"
+          height="100vh"
+        >
+          <Video autoPlay loop muted>
+            <source src="/waiting.mp4" type="video/mp4" />
+          </Video>
         </Box>
+
+        <GetUserLocation />
       </Flex>
     </main>
   );
 }
-
-const BgOverlay = styled.div`
-  background: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-`;
 
 const Video = styled.video`
   width: 100vw;
