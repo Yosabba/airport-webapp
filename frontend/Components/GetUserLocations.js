@@ -1,4 +1,13 @@
-import { Text, Input, Flex, Button, Heading } from "@chakra-ui/react";
+import {
+  Text,
+  Input,
+  Flex,
+  Button,
+  Heading,
+  FormControl,
+  FormErrorMessage,
+  FormHelperText,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -28,7 +37,7 @@ const GetUserLocation = () => {
         location: "",
       });
 
-      router.push("/food")
+      router.push("/food");
     } catch (error) {
       console.log(error);
     }
@@ -44,38 +53,55 @@ const GetUserLocation = () => {
       <Heading as="h1" my="4rem" color="white" zIndex="90">
         Welcome to Airportly
       </Heading>
-      <Text align="left" color="white" zIndex="20" textTransform="capitalize">
-        Enter your airport
-      </Text>
-      <Input
-        maxLength="3"
-        size="sm"
-        type="text"
-        placeholder="Ex: LAX"
-        textTransform="uppercase"
-        bg="white"
-        zIndex="20"
-        border="3px solid #F5f5f5"
-        padding=".4rem"
-        borderRadius="5px"
-        variant="unstyled"
-        my=".5rem"
-        value={formData.location}
-        onChange={handleChange}
-        name="location"
-        _focus={{
-          padding: ".4rem",
-          border: "3px solid #0078FF",
-          transition: "all .4s ease-in-out",
-          boxShadow: "lg",
-        }}
-      />
+
+      <FormControl>
+        <FormHelperText
+          align="left"
+          color="white"
+          zIndex="20"
+          textTransform="capitalize"
+        >
+          Enter your airport
+        </FormHelperText>
+        <Input
+          maxLength="3"
+          size="sm"
+          type="text"
+          placeholder="Ex: LAX"
+          textTransform="uppercase"
+          bg="white"
+          zIndex="20"
+          border="3px solid #F5f5f5"
+          padding=".4rem"
+          borderRadius="5px"
+          variant="unstyled"
+          my=".5rem"
+          value={formData.location}
+          onChange={handleChange}
+          name="location"
+          _focus={{
+            padding: ".4rem",
+            border: "3px solid #0078FF",
+            transition: "all .4s ease-in-out",
+            boxShadow: "lg",
+          }}
+        />
+      </FormControl>
+
       <Button
         colorScheme="messenger"
-        w={{ mobile: "30vw", tablet: "10vw", laptop: "10vw", desktop: "10vw" }}
+        w={{
+          mobile: "30vw",
+          tablet: "10vw",
+          laptop: "10vw",
+          desktop: "10vw",
+        }}
         mx="auto"
         my="3"
-        _hover={{ transition: "all .2s ease-in-out", transform: "scale(1.1)" }}
+        _hover={{
+          transition: "all .2s ease-in-out",
+          transform: "scale(1.1)",
+        }}
         isLoading={isLoading}
         loadingText="Searching"
         onClick={handleClick}
