@@ -1,9 +1,16 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Box, Heading, SimpleGrid, Flex, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import GetUserLocation from "../Components/GetUserLocations";
+import FoodCard from "../Components/Food-Card";
 
 export default function Home() {
+  const dispatch = useDispatch();
+  const { isLoading, isFetched, foodNearMe } = useSelector(
+    (state) => state.food
+  );
   return (
     <main>
       <Head>
@@ -13,6 +20,14 @@ export default function Home() {
       </Head>
 
       <Heading textAlign="center">Food places here</Heading>
+
+      {isFetched && (
+        <SimpleGrid columns={2} spacing={10}>
+          {foodNearMe.map((food) => (
+            <FoodCard key={food._id} food={food} />
+          ))}
+        </SimpleGrid>
+      )}
     </main>
   );
 }
