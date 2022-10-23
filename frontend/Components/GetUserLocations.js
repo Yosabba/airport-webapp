@@ -79,6 +79,7 @@ const GetUserLocation = () => {
           value={formData.location}
           onChange={handleChange}
           name="location"
+          _placeholder={{ color: "gray.300" }}
           _focus={{
             padding: ".4rem",
             border: "3px solid #0078FF",
