@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import axios from "axios";
 
 const initialState = {
@@ -8,22 +7,6 @@ const initialState = {
   isFetched: false,
   error: "",
 };
-
-// export const apiSlice = createApi({
-//   reducerPath: "api",
-//   baseQuery: fetchBaseQuery({
-//     baseUrl: "http://localhost:5000",
-//   }),
-//   endpoints: (builder) => ({
-//     getFoodNearMe: builder.query({
-//       query: (location) => ({
-//         url: "/food",
-//         method: "POST",
-//         body: location,
-//       }),
-//     }),
-//   }),
-// });
 
 export const fetchFoodNearMe = createAsyncThunk(
   "food/fetchFoodNearMe",
@@ -63,7 +46,5 @@ const foodLocationSlice = createSlice({
 });
 
 export const { addFoodLocation } = foodLocationSlice.actions;
-
-// export const { useGetFoodNearMeQuery } = apiSlice;
 
 export default foodLocationSlice.reducer;
