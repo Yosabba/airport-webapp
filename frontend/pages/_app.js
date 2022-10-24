@@ -10,21 +10,6 @@ const breakpoints = {
   "2xl": "1536px",
 };
 
-const customTheme = {
-  fonts: {
-    body: "Poppins, sans-serif",
-    heading: "Poppins, sans-serif",
-  },
-  styles: {
-    global: {
-      // styles for the `body`
-      body: {
-        bg: "#F5f5f5",
-      },
-    },
-  },
-};
-
 const theme = extendTheme({ breakpoints });
 
 function MyApp({ Component, pageProps }) {
