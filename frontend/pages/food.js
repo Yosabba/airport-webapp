@@ -1,15 +1,25 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Box, Heading, SimpleGrid, Flex, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  SimpleGrid,
+  Flex,
+  Text,
+  Gap,
+  Button,
+} from "@chakra-ui/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Router from "next/router";
 import GetUserLocation from "../Components/GetUserLocations";
 import FoodCard from "../Components/Food-Card";
+import { motion as m, AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { isLoading, isFetched, foodNearMe } = useSelector(
+  const { isLoading, isFetched, foodNearMe, airport } = useSelector(
     (state) => state.food
   );
 
@@ -27,12 +37,55 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Heading textAlign="center">Food places here</Heading>
+      <Flex
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+        mx="2rem"
+      >
+        <Link href="/">
+          <Button variant="ghost">
+            {" "}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              width="1rem"
+              style={{ marginRight: ".3rem" }}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+              />
+            </svg>
+            Back to search
+          </Button>
+        </Link>
+
+        <Heading textAlign="center" my="3rem">
+          Food in {airport.toUpperCase()}
+        </Heading>
+        <Box></Box>
+      </Flex>
 
       {isFetched && (
-        <SimpleGrid columns={2} spacing={10}>
-          {foodNearMe.map((food) => (
-            <FoodCard key={food.id} food={food} />
+        <SimpleGrid
+          columns={{ mobile: 1, tablet: 2, laptop: 2, desktop: 3, "2xl": 4 }}
+          spacing={8}
+          mx="2rem"
+          pb="2rem"
+        >
+          {foodNearMe.map((food, index) => (
+            <m.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: index * 0.3 }}
+            >
+              <FoodCard key={food.id} food={food} />
+            </m.div>
           ))}
         </SimpleGrid>
       )}
