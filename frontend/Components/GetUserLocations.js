@@ -11,7 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { fetchFoodNearMe } from "../features/food-location/food-location-slice";
+import { fetchFoodNearMe, addAirport } from "../features/food-location/food-location-slice";
 import { useRouter } from "next/router";
 
 const GetUserLocation = () => {
@@ -30,6 +30,7 @@ const GetUserLocation = () => {
     }
 
     try {
+      dispatch(addAirport(formData.location));
       const response = await dispatch(fetchFoodNearMe(formData));
       unwrapResult(response);
 
