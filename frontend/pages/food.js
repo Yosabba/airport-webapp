@@ -1,21 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
-import {
-  Box,
-  Heading,
-  SimpleGrid,
-  Flex,
-  Text,
-  Gap,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid, Flex, Button } from "@chakra-ui/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Router from "next/router";
-import GetUserLocation from "../Components/GetUserLocations";
 import FoodCard from "../Components/Food-Card";
-import { motion as m, AnimatePresence } from "framer-motion";
+import { motion as m } from "framer-motion";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -73,7 +64,7 @@ export default function Home() {
 
       {isFetched && (
         <SimpleGrid
-          columns={{ mobile: 1, tablet: 2, laptop: 2, desktop: 3, "2xl": 4 }}
+          columns={{ mobile: 1, tablet: 2, laptop: 2, desktop: 3, "2xl": 3 }}
           spacing={8}
           mx="2rem"
           pb="2rem"
@@ -84,7 +75,11 @@ export default function Home() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3, delay: index * 0.3 }}
             >
-              <FoodCard key={food.id} food={food} />
+              <Link href={`/${food.id}`}>
+                <a>
+                  <FoodCard key={food.id} food={food} />
+                </a>
+              </Link>
             </m.div>
           ))}
         </SimpleGrid>
