@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   foodNearMe: [],
+  airport: "",
   isLoading: false,
   isFetched: false,
   error: "",
@@ -13,7 +14,12 @@ export const fetchFoodNearMe = createAsyncThunk(
   async (location, { rejectWithValue, fulfillWithValue }) => {
     try {
       const { data } = await axios.post("http://localhost:5000/food", location);
-      return fulfillWithValue(data);
+
+      const uniqueFood = data.filter(
+        (food, index, self) =>
+          index === self.findIndex((t) => t.name === food.name)
+      );
+      return fulfillWithValue(uniqueFood);
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -26,6 +32,9 @@ const foodLocationSlice = createSlice({
   reducers: {
     addFoodLocation(state, action) {
       state.foodNearMe = action.payload;
+    },
+    addAirport(state, action) {
+      state.airport = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -45,6 +54,6 @@ const foodLocationSlice = createSlice({
   },
 });
 
-export const { addFoodLocation } = foodLocationSlice.actions;
+export const { addFoodLocation, addAirport } = foodLocationSlice.actions;
 
 export default foodLocationSlice.reducer;
