@@ -26,7 +26,7 @@ const read = async (req, res) => {
       radius: 1609,
     });
 
-    res.json(response.jsonBody.businesses.slice(0, 4));
+    res.json(response.jsonBody.businesses);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Something went wrong" });
