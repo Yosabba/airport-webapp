@@ -10,6 +10,7 @@ export default function Home() {
       <Head>
         <title>Airportly</title>
         <meta name="description" content="Find food in your terminal and get directions to it" />
+        <meta name = "viewport" content = "width=device-width, minimum-scale=1.0, maximum-scale = 1.0, user-scalable = no"/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
