@@ -93,8 +93,8 @@ const GetUserLocation = () => {
       <Button
         colorScheme="messenger"
         w={{
-          mobile: "30vw",
-          tablet: "10vw",
+          mobile: "35vw",
+          tablet: "35vw",
           laptop: "10vw",
           desktop: "10vw",
         }}
