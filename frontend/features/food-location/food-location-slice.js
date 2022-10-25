@@ -13,7 +13,10 @@ export const fetchFoodNearMe = createAsyncThunk(
   "food/fetchFoodNearMe",
   async (location, { rejectWithValue, fulfillWithValue }) => {
     try {
-      const { data } = await axios.post("http://localhost:5000/food", location);
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/food`,
+        location
+      );
 
       const uniqueFood = data.filter(
         (food, index, self) =>
