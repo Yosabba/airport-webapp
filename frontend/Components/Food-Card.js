@@ -16,7 +16,7 @@ const FoodCard = ({ food }) => {
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
         height={400}
-        width={435}
+        width={{ base: '435px', mobile: '100%'}}
         borderRadius="50px"
       >
         <Flex
@@ -40,7 +40,7 @@ const FoodCard = ({ food }) => {
             direction="row"
             justify="flex-start"
             backgroundColor="white"
-            w="4vw"
+            w={{ base: "5.4vw", mobile: "25%"}}
             p=".3rem"
             borderRadius="30px"
             ml="1rem"
@@ -60,14 +60,14 @@ const FoodCard = ({ food }) => {
                 clipRule="evenodd"
               />
             </svg>
-            <Text fontSize=".7rem" alignSelf="center" color="gray.500">
+            <Text fontSize={{ base: ".7rem", mobile: "sm"}} alignSelf="center" color="gray.500">
               ({food.review_count})
             </Text>
           </Flex>
         </Flex>
       </Box>
 
-      <Text mt="1rem">
+      <Text mt="1rem" fontSize={{ base: "lg", mobile: "xl"}}>
         {food.categories.map((category) => {
           return `${category.title}, `;
         })}
