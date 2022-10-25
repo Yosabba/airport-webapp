@@ -24,19 +24,31 @@ export default function Home() {
     <main>
       <Head>
         <title>Airportly</title>
-        <meta name="description" content="Find food in your airport terminal and get directions" />
+        <meta
+          name="description"
+          content="Find food in your airport terminal and get directions"
+        />
+        <meta
+          name="viewport"
+          content="width=device-width, minimum-scale=1.0, maximum-scale = 1.0, user-scalable = no"
+        />
+
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Flex
-        direction={{base: "row"}}
+        direction={{ base: "row" }}
         justify="space-between"
         alignItems="center"
         mx="2rem"
-        mr={{ mobile: "5rem"}}
+        mr={{ mobile: "5rem" }}
       >
         <Link href="/">
-          <Button size="xs" backgroundColor="white" _hover={{ backgroundColor: "white"}}>
+          <Button
+            size="xs"
+            backgroundColor="white"
+            _hover={{ backgroundColor: "white" }}
+          >
             {" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
