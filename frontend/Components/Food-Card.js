@@ -1,6 +1,7 @@
 import { Box, Heading, SimpleGrid, Flex, Text } from "@chakra-ui/react";
 
 const FoodCard = ({ food }) => {
+  const removeCommasFromEnd = (foodx) => {};
   return (
     <Flex
       alignItems="center"
@@ -16,7 +17,7 @@ const FoodCard = ({ food }) => {
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
         height={400}
-        width={{ base: '435px', mobile: '100%'}}
+        width={{ base: "435px", mobile: "100%" }}
         borderRadius="50px"
       >
         <Flex
@@ -40,7 +41,7 @@ const FoodCard = ({ food }) => {
             direction="row"
             justify="flex-start"
             backgroundColor="white"
-            w={{ base: "5.4vw", mobile: "25%"}}
+            w={{ base: "5.4vw", mobile: "25%" }}
             p=".3rem"
             borderRadius="30px"
             ml="1rem"
@@ -60,17 +61,19 @@ const FoodCard = ({ food }) => {
                 clipRule="evenodd"
               />
             </svg>
-            <Text fontSize={{ base: ".7rem", mobile: "sm"}} alignSelf="center" color="gray.500">
+            <Text
+              fontSize={{ base: ".7rem", mobile: "sm" }}
+              alignSelf="center"
+              color="gray.500"
+            >
               ({food.review_count})
             </Text>
           </Flex>
         </Flex>
       </Box>
 
-      <Text mt="1rem" fontSize={{ base: "lg", mobile: "xl"}}>
-        {food.categories.map((category) => {
-          return `${category.title}, `;
-        })}
+      <Text mt="1rem" fontSize={{ base: "lg", mobile: "xl" }}>
+        {food.categories.map((category) => category.title).join(", ")}
       </Text>
     </Flex>
   );
