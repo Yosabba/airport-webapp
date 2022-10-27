@@ -34,7 +34,7 @@ const list = async (req, res) => {
 
   try {
     const response = await client.search({
-      term: "Coffee",
+      term: "Food",
       location: `${location} airport`,
       radius: 1609,
     });
