@@ -29,6 +29,20 @@ export const fetchFoodNearMe = createAsyncThunk(
   }
 );
 
+export const fetchSingleFood = createAsyncThunk(
+  "food/fetchSingleFood",
+  async (food, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/food/${id}`
+      );
+      return fulfillWithValue(data);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const foodLocationSlice = createSlice({
   name: "foodLocation",
   initialState,
