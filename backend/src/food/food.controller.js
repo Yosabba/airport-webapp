@@ -17,6 +17,19 @@ function checkFoodLocation(req, res, next) {
 }
 
 const read = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const response = await client.business(id);
+
+    res.json(response.jsonBody);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+const list = async (req, res) => {
   const { location } = req.body;
 
   try {
@@ -35,4 +48,5 @@ const read = async (req, res) => {
 
 module.exports = {
   read: [checkFoodLocation, read],
+  list,
 };
