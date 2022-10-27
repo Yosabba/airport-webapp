@@ -1,7 +1,6 @@
 import { Box, Heading, SimpleGrid, Flex, Text } from "@chakra-ui/react";
 
 const FoodCard = ({ food }) => {
-  const removeCommasFromEnd = (foodx) => {};
   return (
     <Flex
       alignItems="center"
