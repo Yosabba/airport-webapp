@@ -1,80 +1,69 @@
-import { Box, Heading, SimpleGrid, Flex, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  SimpleGrid,
+  Flex,
+  Button,
+  Badge,
+  StarIcon,
+  Image,
+  Text,
+} from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
 const FoodCard = ({ food }) => {
   return (
-    <Flex
-      alignItems="center"
-      direction="column"
-      justify="center"
-      borderRadius="50px"
-      boxShadow="lg"
-      pb="3rem"
-      cursor="pointer"
+    <Box
+      maxW="sm"
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+      mx="auto"
+      my="5rem"
     >
-      <Box
-        backgroundImage={food.image_url}
-        backgroundRepeat="no-repeat"
-        backgroundSize="cover"
-        height={400}
-        width={{ base: "435px", mobile: "100%" }}
-        borderRadius="50px"
-      >
-        <Flex
-          direction="column"
-          justify="space-between"
-          height="100%"
-          width="100%"
-          bg="rgba(0,0,0,0.5)"
-          pb=".5rem"
-          pl=".5rem"
-          borderRadius="50px"
+      <Image src={`${food.image_url}`} alt="food" />
+
+      <Box p="6">
+        <Box display="flex" alignItems="baseline">
+          {food.categories.map((category) => (
+            <Badge borderRadius="full" px="2" colorScheme="blue">
+              {category.title}
+            </Badge>
+          ))}
+        </Box>
+
+        <Text
+          mt="1rem"
+          fontWeight="semibold"
+          lineHeight="tight"
+          noOfLines={1}
+          fontSize="2xl"
         >
-          <Heading as="h3" color="white" fontSize="4xl" p="1rem">
-            {food.name}
-          </Heading>
-          <Text color="white" fontSize="xl" p="1rem">
-            {food.location.display_address[1]}
-          </Text>
+          {food.name}
+        </Text>
 
-          <Flex
-            direction="row"
-            justify="flex-start"
-            backgroundColor="white"
-            w={{ base: "5.4vw", mobile: "25%" }}
-            p=".3rem"
-            borderRadius="30px"
-            ml="1rem"
+        <Text>{food.location.display_address[1]}</Text>
+
+        <Box display="flex" mt="2" alignItems="center">
+          <Text>{food.rating}</Text>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="gold"
+            width="20px"
           >
-            <Text fontWeight="semibold" fontSize="1rem">
-              {food.rating}
-            </Text>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="gold"
-              width="1rem"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <Text
-              fontSize={{ base: ".7rem", mobile: "sm" }}
-              alignSelf="center"
-              color="gray.500"
-            >
-              ({food.review_count})
-            </Text>
-          </Flex>
-        </Flex>
+            <path
+              fillRule="evenodd"
+              d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <Box as="span" color="gray.600" fontSize="xs">
+            {`(${food.review_count})`} reviews
+          </Box>
+        </Box>
       </Box>
-
-      <Text mt="1rem" fontSize={{ base: "lg", mobile: "xl" }}>
-        {food.categories.map((category) => category.title).join(", ")}
-      </Text>
-    </Flex>
+    </Box>
   );
 };
 
