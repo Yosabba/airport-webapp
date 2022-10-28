@@ -2,11 +2,13 @@ import Head from "next/head";
 import Image from "next/image";
 import { Box, Heading, SimpleGrid, Flex, Button } from "@chakra-ui/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Router from "next/router";
 import FoodCard from "../Components/Food-Card";
 import { motion as m } from "framer-motion";
+import { fetchSingleFood } from "../features/food-location/food-location-slice";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -19,6 +21,15 @@ export default function Home() {
       Router.push("/");
     }
   }, [foodNearMe]);
+
+  const handleClick = async (id) => {
+    try {
+      const response = await dispatch(fetchSingleFood(id));
+      unwrapResult(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <main>
@@ -78,7 +89,7 @@ export default function Home() {
       {isFetched && (
         <SimpleGrid
           columns={{ mobile: 1, tablet: 2, laptop: 2, desktop: 3, "2xl": 3 }}
-          spacing={8}
+          spacing={3}
           mx="1rem"
           pb="2rem"
         >
@@ -90,7 +101,7 @@ export default function Home() {
               transition={{ duration: 0.3, delay: index * 0.3 }}
             >
               <Link href={`/${food.id}`}>
-                <a>
+                <a onClick={() => handleClick(food.id)}>
                   <FoodCard food={food} />
                 </a>
               </Link>
