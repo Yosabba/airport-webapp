@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   foodNearMe: [],
+  businessDetails: [],
   airport: "",
   isLoading: false,
   isFetched: false,
@@ -31,7 +32,7 @@ export const fetchFoodNearMe = createAsyncThunk(
 
 export const fetchSingleFood = createAsyncThunk(
   "food/fetchSingleFood",
-  async (food, { rejectWithValue, fulfillWithValue }) => {
+  async (id, { rejectWithValue, fulfillWithValue }) => {
     try {
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/food/${id}`
@@ -65,6 +66,18 @@ const foodLocationSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchFoodNearMe.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchSingleFood.fulfilled, (state, action) => {
+        state.businessDetails = action.payload;
+        state.isLoading = false;
+        state.isFetched = true;
+      })
+      .addCase(fetchSingleFood.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchSingleFood.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       });
