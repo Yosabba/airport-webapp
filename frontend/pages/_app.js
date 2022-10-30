@@ -4,10 +4,10 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 const breakpoints = {
   mobile: "320px",
-  tablet: "768px",
-  laptop: "960px",
-  desktop: "1200px",
-  "2xl": "1536px",
+  tablet: "481px",
+  laptop: "769px",
+  desktop: "1024px",
+  "2xl": "1201px",
 };
 
 const theme = extendTheme({ breakpoints });
