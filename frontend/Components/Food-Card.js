@@ -21,7 +21,7 @@ const FoodCard = ({ food }) => {
       mx="auto"
       my="5rem"
     >
-      <Image src={`${food.image_url}`} alt="food" />
+      <Image src={`${food.image_url}`} alt="food" width={400} height={300} />
 
       <Box p="6">
         <Box display="flex" alignItems="baseline">
