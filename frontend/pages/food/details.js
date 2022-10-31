@@ -20,7 +20,9 @@ export default function Details() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {businessDetails ? <BusinessDetails businessDetails={businessDetails} /> : null}
+      {businessDetails.length < 0 ? null : (
+        <BusinessDetails businessDetails={businessDetails} />
+      )}
     </main>
   );
 }
