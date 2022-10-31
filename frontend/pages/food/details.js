@@ -3,8 +3,16 @@ import Image from "next/image";
 import { Box, Heading, SimpleGrid, Flex, Text } from "@chakra-ui/react";
 import BusinessDetails from "../../Components/Food-Details";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 export default function Details() {
-  const { businessDetails } = useSelector((state) => state.food);
+  const [business, setBusiness] = useState({});
+
+  useEffect(() => {
+    const { businessDetails } = useSelector((state) => state.food);
+
+    setBusiness(businessDetails);
+  }, [businessDetails]);
+
   return (
     <main>
       <Head>
@@ -20,9 +28,7 @@ export default function Details() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {businessDetails.length < 0 ? null : (
-        <BusinessDetails businessDetails={businessDetails} />
-      )}
+      {business < 0 ? null : <BusinessDetails businessDetails={business} />}
     </main>
   );
 }
