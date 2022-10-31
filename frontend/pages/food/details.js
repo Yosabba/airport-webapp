@@ -11,7 +11,7 @@ export default function Details() {
     const { businessDetails } = useSelector((state) => state.food);
 
     setBusiness(businessDetails);
-  }, [businessDetails]);
+  }, []);
 
   return (
     <main>
