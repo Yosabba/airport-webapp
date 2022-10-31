@@ -5,13 +5,7 @@ import BusinessDetails from "../../Components/Food-Details";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 export default function Details() {
-  const [business, setBusiness] = useState({});
-
-  useEffect(() => {
-    const { businessDetails } = useSelector((state) => state.food);
-
-    setBusiness(businessDetails);
-  }, []);
+  const { isFetched, businessDetails } = useSelector((state) => state.food);
 
   return (
     <main>
@@ -28,7 +22,7 @@ export default function Details() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {business < 0 ? null : <BusinessDetails businessDetails={business} />}
+      {isFetched ? <BusinessDetails businessDetails={businessDetails} /> : null}
     </main>
   );
 }
