@@ -20,6 +20,7 @@ const FoodCard = ({ food }) => {
       overflow="hidden"
       mx="auto"
       my="5rem"
+      _hover={{ cursor: "pointer" }}
     >
       <Image src={`${food.image_url}`} alt="food" width={400} height={300} />
 
