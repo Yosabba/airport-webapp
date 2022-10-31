@@ -1,6 +1,16 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Box, Heading, SimpleGrid, Flex, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  SimpleGrid,
+  Flex,
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  Spinner,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +36,8 @@ export default function Home() {
     try {
       const response = await dispatch(fetchSingleFood(id));
       unwrapResult(response);
+
+      Router.push(`/food/details`);
     } catch (error) {
       console.log(error);
     }
@@ -46,6 +58,13 @@ export default function Home() {
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <Modal isOpen={isLoading} isCentered>
+        <ModalOverlay />
+        <ModalContent w="0">
+          <Spinner size="xl" thickness="5px" color="blue.400" />
+        </ModalContent>
+      </Modal>
 
       <Flex
         direction={{ base: "row" }}
@@ -100,11 +119,9 @@ export default function Home() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3, delay: index * 0.3 }}
             >
-              <Link href={`/food/${food.id}`}>
-                <a onClick={() => handleClick(food.id)}>
-                  <FoodCard food={food} />
-                </a>
-              </Link>
+              <a onClick={() => handleClick(food.id)}>
+                <FoodCard food={food} />
+              </a>
             </m.div>
           ))}
         </SimpleGrid>
