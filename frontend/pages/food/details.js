@@ -1,9 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Box, Heading, SimpleGrid, Flex, Text } from "@chakra-ui/react";
 import BusinessDetails from "../../Components/Food-Details";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+
 export default function Details() {
   const { isFetched, businessDetails } = useSelector((state) => state.food);
 
