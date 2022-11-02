@@ -16,6 +16,8 @@ import Link from "next/link";
 import Head from "next/head";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import "leaflet/dist/leaflet.js";
+
 
 // import required modules
 import { Swiper, SwiperSlide } from "swiper/react";
