@@ -1,10 +1,17 @@
 import Head from "next/head";
 import Image from "next/image";
-import BusinessDetails from "../../Components/Food-Details";
 import { useSelector } from "react-redux";
+import dynamic from "next/dynamic";
 
 export default function Details() {
   const { isFetched, businessDetails } = useSelector((state) => state.food);
+
+  const BusinessDetails = dynamic(
+    () => import("../../Components/Food-Details"),
+    {
+      ssr: false,
+    }
+  );
 
   return (
     <main>
