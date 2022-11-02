@@ -13,19 +13,21 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Link from "next/link";
+import Head from "next/head";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 // import required modules
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
+import L from "leaflet";
 
 function BusinessDetails({ businessDetails }) {
-
+  const icon = L.icon({ iconUrl: "/images/marker-icon.png" });
   const convertTime = (time) => {
-    // turn 0430 into 4:30
     const hour = time.slice(0, 2);
     const minute = time.slice(2, 4);
 
-    //remove 0 from hour
     const hourWithoutZero = hour.replace(/^0+/, "");
 
     return `${hourWithoutZero}:${minute} AM`;
@@ -47,6 +49,7 @@ function BusinessDetails({ businessDetails }) {
         <Button
           size="md"
           backgroundColor="white"
+          my="1rem"
           _hover={{ backgroundColor: "white" }}
         >
           {" "}
@@ -108,8 +111,8 @@ function BusinessDetails({ businessDetails }) {
               loop={true}
               className="mySwiper"
             >
-              {businessDetails.photos.map((photo) => (
-                <SwiperSlide>
+              {businessDetails.photos.map((photo, index) => (
+                <SwiperSlide key={index}>
                   <AspectRatio maxW="full">
                     <Image
                       src={photo}
@@ -124,7 +127,7 @@ function BusinessDetails({ businessDetails }) {
           </Box>
 
           <Flex
-            mx={{ laptop: "2rem", mobile: "0" }}
+            mx={{ laptop: "2rem", mobile: ".5rem" }}
             mb={{ laptop: "1rem", mobile: "0" }}
             direction="column"
           >
@@ -237,12 +240,49 @@ function BusinessDetails({ businessDetails }) {
                   : null}
               </Text>
             </Flex>
+            <Button
+              mt="1rem"
+              p="1rem"
+              colorScheme="messenger"
+              alignSelf={{ laptop: "start", mobile: "center" }}
+            >
+              <a
+                href={`http://maps.google.com/?q=${businessDetails.coordinates.latitude},${businessDetails.coordinates.longitude}`}
+                target="_blank"
+              >
+                Get Directions
+              </a>
+            </Button>
           </Flex>
         </Box>
 
-        <Box>
-          <Heading fontSize="4xl">Google maps here</Heading>
-        </Box>
+        <MapContainer
+          center={[
+            businessDetails.coordinates.latitude,
+            businessDetails.coordinates.longitude,
+          ]}
+          zoom={35}
+          scrollWheelZoom={false}
+          style={{ height: "60vh", maxWidth: "100%" }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker
+            position={[
+              businessDetails.coordinates.latitude,
+              businessDetails.coordinates.longitude,
+            ]}
+            icon={icon}
+          >
+            <Popup>
+              {businessDetails.location.display_address.map(
+                (location) => `${location},`
+              )}
+            </Popup>
+          </Marker>
+        </MapContainer>
       </SimpleGrid>
     </main>
   );
