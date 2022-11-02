@@ -26,8 +26,8 @@ const FoodCard = ({ food }) => {
 
       <Box p="6">
         <Box display="flex" alignItems="baseline">
-          {food.categories.map((category) => (
-            <Badge borderRadius="full" px="2" colorScheme="blue">
+          {food.categories.map((category,index) => (
+            <Badge key={index} borderRadius="full" px="2" colorScheme="blue">
               {category.title}
             </Badge>
           ))}
