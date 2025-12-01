@@ -23,7 +23,7 @@ export function FoodCard({ food, index = 0 }: FoodCardProps) {
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
-            src={food.image_url || "/logo.svg"}
+            src={food.image_url || "/food-placeholder.svg"}
             alt={food.name}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-110"

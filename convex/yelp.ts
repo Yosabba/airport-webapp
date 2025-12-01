@@ -49,6 +49,8 @@ export const searchFood = action({
 
     interface YelpBusiness {
       name: string;
+      rating?: number;
+      review_count?: number;
       categories?: YelpCategory[];
       location?: {
         display_address?: string[];
@@ -70,7 +72,7 @@ export const searchFood = action({
       "carrental",
     ];
 
-    // Filter to only include food-related businesses
+    // Filter to only include food-related businesses with ratings
     const foodBusinesses = data.businesses.filter((business: YelpBusiness) => {
       const categoryAliases = business.categories?.map((c) => c.alias) || [];
 
@@ -79,7 +81,10 @@ export const searchFood = action({
         excludedCategories.includes(alias)
       );
 
-      return !hasExcludedCategory;
+      // Exclude businesses with no ratings or reviews
+      const hasRatings = (business.rating ?? 0) > 0 && (business.review_count ?? 0) > 0;
+
+      return !hasExcludedCategory && hasRatings;
     });
 
     // Remove duplicates by name
