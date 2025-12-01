@@ -15,20 +15,48 @@ export default function Home() {
       </video>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40 -z-10" />
+      <div className="absolute inset-0 bg-black/50 -z-10" />
 
       {/* Content */}
-      <div className="flex flex-col items-center gap-8 px-4 text-center">
-        <div className="space-y-2">
-          <h1 className="text-4xl tablet:text-5xl laptop:text-6xl font-bold text-white drop-shadow-lg">
+      <div className="relative z-10 flex flex-col items-center gap-10 px-6 text-center max-w-2xl mx-auto">
+        {/* Title */}
+        <div className="space-y-4 animate-slide-up">
+          <h1 className="text-5xl tablet:text-6xl laptop:text-7xl font-bold text-white tracking-tight">
             Airportly
           </h1>
-          <p className="text-lg tablet:text-xl text-white/90 drop-shadow">
-            Find the best food near any airport
+          <p className="text-xl tablet:text-2xl text-white/80 font-light max-w-xl mx-auto">
+            Find the best restaurants inside any airport terminal
           </p>
         </div>
 
-        <AirportSearch />
+        {/* Search */}
+        <div
+          className="w-full max-w-md animate-scale-in"
+          style={{ animationDelay: "150ms" }}
+        >
+          <AirportSearch />
+        </div>
+
+        {/* Stats */}
+        <div
+          className="flex items-center justify-center gap-4 tablet:gap-8 text-white/60 text-xs tablet:text-sm animate-fade-in"
+          style={{ animationDelay: "300ms" }}
+        >
+          <div className="flex flex-col items-center gap-0.5 tablet:gap-1">
+            <span className="text-lg tablet:text-2xl font-bold text-white">5,000+</span>
+            <span>Airports</span>
+          </div>
+          <div className="w-px h-8 tablet:h-10 bg-white/20" />
+          <div className="flex flex-col items-center gap-0.5 tablet:gap-1">
+            <span className="text-lg tablet:text-2xl font-bold text-white">100K+</span>
+            <span>Restaurants</span>
+          </div>
+          <div className="w-px h-8 tablet:h-10 bg-white/20" />
+          <div className="flex flex-col items-center gap-0.5 tablet:gap-1">
+            <span className="text-lg tablet:text-2xl font-bold text-white">Real-time</span>
+            <span>Data</span>
+          </div>
+        </div>
       </div>
     </main>
   );

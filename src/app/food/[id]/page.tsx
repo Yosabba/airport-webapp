@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useAction } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { FoodDetails } from "@/components/food-details";
+import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import type { YelpBusinessDetails } from "@/lib/types";
 
@@ -42,10 +43,16 @@ export default function FoodDetailsPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
-          <p className="text-muted-foreground">Loading details...</p>
+      <div className="min-h-screen bg-background">
+        <Header showBack />
+        <div className="flex-1 flex items-center justify-center min-h-[80vh]">
+          <div className="flex flex-col items-center gap-4 animate-fade-in">
+            <div className="relative w-12 h-12">
+              <div className="absolute inset-0 rounded-full border-4 border-muted" />
+              <div className="absolute inset-0 rounded-full border-4 border-t-primary animate-spin" />
+            </div>
+            <p className="text-muted-foreground font-medium">Loading details...</p>
+          </div>
         </div>
       </div>
     );
@@ -53,15 +60,27 @@ export default function FoodDetailsPage() {
 
   if (error || !business) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4 text-center px-4">
-          <h2 className="text-2xl font-bold">Error</h2>
-          <p className="text-muted-foreground">
-            {error || "Business not found."}
-          </p>
-          <Link href="/">
-            <Button>Go Home</Button>
-          </Link>
+      <div className="min-h-screen bg-background">
+        <Header showBack />
+        <div className="flex-1 flex items-center justify-center p-6 min-h-[80vh]">
+          <div className="flex flex-col items-center gap-6 text-center max-w-md animate-fade-in">
+            <div className="w-20 h-20 rounded-full bg-destructive/10 flex items-center justify-center">
+              <svg className="w-10 h-10 text-destructive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold">Error</h2>
+              <p className="text-muted-foreground text-lg">
+                {error || "Business not found."}
+              </p>
+            </div>
+            <Link href="/">
+              <Button size="lg" className="rounded-xl">
+                Go Home
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -69,17 +88,10 @@ export default function FoodDetailsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b">
-        <div className="container mx-auto px-4 py-4 flex items-center">
-          <Button variant="ghost" size="sm" onClick={() => router.back()}>
-            ← Back
-          </Button>
-        </div>
-      </header>
+      <Header showBack title={business.name} subtitle={business.categories?.[0]?.title} />
 
       {/* Content */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 tablet:px-6 py-6 tablet:py-8">
         <FoodDetails business={business} />
       </main>
     </div>
