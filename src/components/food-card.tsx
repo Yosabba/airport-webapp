@@ -30,7 +30,7 @@ export function FoodCard({ food, index = 0 }: FoodCardProps) {
             sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw"
           />
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
         </div>
 
         {/* Top Row - Price & Rating */}
@@ -74,7 +74,7 @@ export function FoodCard({ food, index = 0 }: FoodCardProps) {
           {/* Address & Arrow */}
           <div className="flex items-center justify-between">
             <p className="text-xs tablet:text-sm text-white/70 line-clamp-1 flex items-center gap-1 tablet:gap-1.5 flex-1 mr-2 tablet:mr-3">
-              <svg className="w-3.5 h-3.5 tablet:w-4 tablet:h-4 flex-shrink-0 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 tablet:w-4 tablet:h-4 shrink-0 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
