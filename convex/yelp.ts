@@ -42,55 +42,49 @@ export const searchFood = action({
 
     const data = await response.json();
 
-    // Filter to prioritize airport restaurants
-    // Check if address contains airport-related keywords
-    const airportKeywords = [
-      "airport",
-      "terminal",
-      "concourse",
-      "gate",
-      airportCode.toLowerCase(),
-    ];
+    interface YelpCategory {
+      alias: string;
+      title: string;
+    }
 
     interface YelpBusiness {
       name: string;
+      categories?: YelpCategory[];
       location?: {
         display_address?: string[];
         address1?: string;
       };
     }
 
-    // Separate airport restaurants from nearby restaurants
-    const airportRestaurants: YelpBusiness[] = [];
-    const nearbyRestaurants: YelpBusiness[] = [];
+    // Categories to EXCLUDE (non-food)
+    const excludedCategories = [
+      "airports",
+      "airportterminals",
+      "hotelstravel",
+      "hotels",
+      "transport",
+      "publictransport",
+      "trainstations",
+      "busstations",
+      "parking",
+      "carrental",
+    ];
 
-    data.businesses.forEach((business: YelpBusiness) => {
-      const addressText = [
-        business.location?.address1 || "",
-        ...(business.location?.display_address || []),
-      ]
-        .join(" ")
-        .toLowerCase();
+    // Filter to only include food-related businesses
+    const foodBusinesses = data.businesses.filter((business: YelpBusiness) => {
+      const categoryAliases = business.categories?.map((c) => c.alias) || [];
 
-      const nameText = business.name.toLowerCase();
-
-      const isInAirport = airportKeywords.some(
-        (keyword) => addressText.includes(keyword) || nameText.includes(keyword)
+      // Exclude if any category is in the excluded list
+      const hasExcludedCategory = categoryAliases.some((alias) =>
+        excludedCategories.includes(alias)
       );
 
-      if (isInAirport) {
-        airportRestaurants.push(business);
-      } else {
-        nearbyRestaurants.push(business);
-      }
+      return !hasExcludedCategory;
     });
 
-    // Combine: airport restaurants first, then nearby ones
-    const allBusinesses = [...airportRestaurants, ...nearbyRestaurants];
-
-    // Filter duplicates by name
-    const uniqueBusinesses = allBusinesses.filter(
-      (business, index, self) =>
+    // Remove duplicates by name
+    const uniqueBusinesses = foodBusinesses.filter(
+      (business: YelpBusiness, index: number, self: YelpBusiness[]) =>
         index === self.findIndex((t) => t.name === business.name)
     );
 
