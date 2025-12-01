@@ -14,11 +14,16 @@ export const searchFood = action({
       throw new Error("YELP_API_KEY environment variable is not set");
     }
 
-    const searchQuery = `${args.airportCode} airport`;
+    const airportCode = args.airportCode.toUpperCase();
+    const searchLocation = `${airportCode} airport terminal`;
+
+    // Search for food specifically inside the airport
     const params = new URLSearchParams({
-      term: "Food",
-      location: searchQuery,
-      radius: "1609", // 1 mile in meters
+      term: "restaurants airport food",
+      location: searchLocation,
+      radius: "800", // ~0.5 miles - focused on terminal area
+      sort_by: "distance", // Prioritize closest to terminal
+      limit: "50", // Get more results to filter
     });
 
     const response = await fetch(
@@ -36,9 +41,55 @@ export const searchFood = action({
 
     const data = await response.json();
 
-    // Filter duplicates by name (Yelp sometimes returns duplicates)
-    const uniqueBusinesses = data.businesses.filter(
-      (business: { name: string }, index: number, self: { name: string }[]) =>
+    // Filter to prioritize airport restaurants
+    // Check if address contains airport-related keywords
+    const airportKeywords = [
+      "airport",
+      "terminal",
+      "concourse",
+      "gate",
+      airportCode.toLowerCase(),
+    ];
+
+    interface YelpBusiness {
+      name: string;
+      location?: {
+        display_address?: string[];
+        address1?: string;
+      };
+    }
+
+    // Separate airport restaurants from nearby restaurants
+    const airportRestaurants: YelpBusiness[] = [];
+    const nearbyRestaurants: YelpBusiness[] = [];
+
+    data.businesses.forEach((business: YelpBusiness) => {
+      const addressText = [
+        business.location?.address1 || "",
+        ...(business.location?.display_address || []),
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      const nameText = business.name.toLowerCase();
+
+      const isInAirport = airportKeywords.some(
+        (keyword) => addressText.includes(keyword) || nameText.includes(keyword)
+      );
+
+      if (isInAirport) {
+        airportRestaurants.push(business);
+      } else {
+        nearbyRestaurants.push(business);
+      }
+    });
+
+    // Combine: airport restaurants first, then nearby ones
+    const allBusinesses = [...airportRestaurants, ...nearbyRestaurants];
+
+    // Filter duplicates by name
+    const uniqueBusinesses = allBusinesses.filter(
+      (business, index, self) =>
         index === self.findIndex((t) => t.name === business.name)
     );
 
