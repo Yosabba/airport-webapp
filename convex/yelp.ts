@@ -19,7 +19,8 @@ export const searchFood = action({
 
     // Search for food specifically inside the airport
     const params = new URLSearchParams({
-      term: "restaurants airport food",
+      term: "food",
+      categories: "restaurants,food,bars,coffee,bakeries",
       location: searchLocation,
       radius: "800", // ~0.5 miles - focused on terminal area
       sort_by: "distance", // Prioritize closest to terminal
